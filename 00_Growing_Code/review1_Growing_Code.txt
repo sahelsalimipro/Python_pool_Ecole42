@@ -1,0 +1,178 @@
+1_Growing_CodeCommon core - Growing Code
+
+- Remain polite, courteous, respectful and constructive
+throughout the evaluation process. The well-being of the community
+depends on it.
+
+- Work with the person (or group) being evaluated to identify any potential
+dysfunctions in the work. Take the time to discuss
+and debate the problems you have identified.
+
+- You must consider that there may be differences in how your
+peers have understood the project's instructions and the
+scope of its functionalities. Always keep an open mind and grade
+them as honestly as possible. The pedagogy is valid
+only if peer evaluation is conducted seriously.
+
+- Only grade the work that is in the student's or group's
+Git repository.
+
+- Double-check that the Git repository belongs to the student
+or the group. Ensure that the work is for the relevant project
+and also check that "git clone" is used in an empty folder.
+
+- Check carefully that no malicious aliases were used to fool you
+and make you evaluate something other than the content of the
+official repository.
+
+- To avoid any surprises, carefully check that both the evaluating
+and the evaluated students have reviewed the possible scripts used
+to facilitate the grading.
+
+- If the evaluating student has not completed that particular
+project yet, it is mandatory for this student to read the
+entire subject prior to starting the defence.
+
+- Use the flags available on this scale to signal an empty repository,
+a non-functioning program, a norm error, cheating, etc. In these cases,
+the grading is over and the final grade is 0 (or -42 in case of
+cheating). However, with the exception of cheating, you are
+encouraged to continue to discuss your work (even if you have not
+finished it) in order to identify any issues that may have caused
+this failure and avoid repeating the same mistake in the future.
+
+- Remember that during the defence, no unexpected, premature, uncontrolled
+termination of the program; otherwise, the final grade is 0. Use the
+appropriate flag. 
+You should never need to edit any file except the configuration file, if it exists.
+If you want to edit a file, take the time to explain the reasons to the 
+evaluated student and make sure both of you agree to this.
+basics
+QUESTION 1
+
+The review is done in the presence of the reviewed learner. This
+is how everyone progresses: by interacting with others.
+- No submitted work: 0, the review is over.
+- As soon as an exercise is non-functional, the review stops.
+You can look at the code of the following exercises, but they will not
+be graded.
+Exercise 00 - ft_hello_garden
+QUESTION 2
+
+- Verify the file contains a function named ft_hello_garden() (not a main program).
+- Run the function using the helper main.py, and verify that it outputs exactly "Hello, Garden Community!".
+- Check that the function takes no parameters.
+- Verify the function uses print() to display the message.
+- Ensure the file is in the ex0/ directory.
+Exercise 01 - ft_garden_name
+QUESTION 3
+
+- Verify the file contains a function named ft_garden_name() (not a main program).
+- Test with input "Community Garden"
+- Test with input "My Garden"
+- Verify it correctly displays "Garden: [name]".
+- Verify it displays "Status: Growing well!" exactly.
+- Ensure the file is in the ex1/ directory.
+Exercise 02 - ft_plot_area
+QUESTION 4
+
+- Verify the file contains a function named ft_plot_area() (not a main program).
+- Run the function (again, using the helper main.py) and test with different
+  inputs like length=10, width=5 (should output "Plot area: 50").
+- Test with length=7, width=3 (should output "Plot area: 21").
+- Test with length=1, width=1 (should output "Plot area: 1").
+- Verify that the function correctly calculates the area using multiplication.
+- Check that the output format matches exactly "Plot area: X".
+- Ensure the file is in the ex2/ directory.
+Exercise 03 - ft_harvest_total
+QUESTION 5
+
+- Verify the file contains a function named ft_harvest_total() (not a main program).
+- Test with inputs like day1=5, day2=8, day3=3 (should output "Total harvest: 16").
+- Test with day1=10, day2=0, day3=5 (should output "Total harvest: 15").
+- Test with all zeros: day1=0, day2=0, day3=0 (should output "Total harvest: 0").
+- Verify that the function correctly adds the three values together. 
+- Check that the output format matches exactly "Total harvest: X".
+- Ensure the file is in the ex3/ directorExercise 04 - ft_plant_age
+QUESTION 6
+
+- Verify the file contains a function named ft_plant_age() (not a main program).
+- Test with age=75 (should output "Plant is ready to harvest!").
+- Test with age=60 (should output "Plant needs more time to grow.").
+- Test with age=61 (should output "Plant is ready to harvest!").
+- Test with age=30 (should output "Plant needs more time to grow.").
+- Verify the condition correctly uses > 60 or any mathematical equivalent
+  (like >= 61, or < with inverted operands), and places the limit 60 on the correct branch.
+- Ensure the file is in the ex4/ directory.
+Exercise 05 - ft_water_reminder
+QUESTION 7
+
+- Verify the file contains a function named ft_water_reminder() (not a main program).
+- Test with days=4 (should output "Water the plants!").
+- Test with days=2 (should output "Plants are fine").
+- Test with days=3 (should output "Water the plants!").
+- Test with days=1 (should output "Plants are fine").
+- Verify the condition correctly uses > 2 or any mathematical equivalent
+  (like >= 3, or < with inverted operands), and places the limit 2 on the correct branch.
+- Ensure the file is in the ex5/ directory.
+Exercise 06 - ft_count_harvest (Iterative)
+QUESTION 8
+
+- Verify the file ft_count_harvest_iterative.py exists in the ex6/ directory.
+- Verify it contains a function named ft_count_harvest_iterative() (not a main program).
+- Test with days=5 (should output "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Harvest time!").
+- Test with days=1 (should output "Day 1", "Harvest time!").
+- Test with days=3 and verify it counts from 1 to 3 correctly.
+- Verify that the function uses an iterative approach (a for loop or a while loop).
+- Check that "Harvest time!" appears at the end.
+Exercise 06 - ft_count_harvest (Recursive)
+QUESTION 9
+
+- Verify the file ft_count_harvest_recursive.py exists in the ex6/ directory.
+- Verify it contains a function named ft_count_harvest_recursive() (not a main program).
+- Test with days=5 (should output "Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Harvest time!").
+- Test with days=1 (should output "Day 1", "Harvest time!").
+- Test with days=3 and verify it counts from 1 to 3 correctly.
+- Verify the function uses a recursive approach (function calls itself or uses a helper function).
+- IMPORTANT: Accept various recursive implementations, including nested helper functions, default
+  parameter values, or separate helper functions called by the main function.
+- Check that "Harvest time!" appears at the end.
+- Both iterative and recursive versions should produce identical output.
+Exercise 07 - ft_seed_inventory
+QUESTION 10
+
+- Verify the file contains a function named ft_seed_inventory() (not a main program).
+- Check that the function uses proper type annotations:
+  ft_seed_inventory(seed_type: str, quantity: int, unit: str) -> None
+- Use the provided main.py, which will test for:
+    seed_type="tomato", quantity=15, unit="packets" 
+     (should output "Tomato seeds: 15 packets available")
+    seed_type="carrot", quantity=8, unit="grams" 
+     (should output "Carrot seeds: 8 grams total")
+    seed_type="lettuce", quantity=12, unit="area" 
+     (should output "Lettuce seeds: covers 12 square meters")
+    an unknown unit such as "unknown" (should output only "Unknown unit type")
+- Create a copy of main.py and change the four previous tests in the code. Run the
+  copy of main.py on the exercise and check whether the new values are correct.
+- Verify that the function correctly capitalizes the seed type in the output.
+- Ensure the file is in the ex7/ directory.
+- Verify that all functions have proper type hints for parameters and return values.
+Code Quality & Standards
+QUESTION 11
+
+Code Quality Standards Check:
+- Run 'flake8' on all Python files in the submission. Are there any flake8 errors or warnings?
+- Note: Docstrings are NOT required for this module.
+
+If there are flake8 errors on an exercice, the exercise fails. Change the rating above if necessary.
+General Code Quality
+QUESTION 12
+
+Code Quality Assessment:
+- Are all functions properly defined with correct names 
+  (ft_hello_garden, ft_garden_name, ft_plot_area, ft_harvest_total, ft_seed_inventory, etc.)?
+- Is the code readable and well-structured?
+- Do the solutions demonstrate the intended Python concepts?
+- Are files in the correct directories (ex0/, ex1/, ex2/, ex3/, ex4/, ex5/, ex6/, ex7/)?
+- IMPORTANT: Each exercise should contain ONLY a function, not a main program.
+

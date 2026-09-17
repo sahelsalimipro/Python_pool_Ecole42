@@ -1,20 +1,28 @@
 #!/usr/bin/env python3
 
-class Plant:
-    def __init__(self, name: str, height: int, age: int):
-        self.name = name
-        self.height = height
-        self.age = age
+def input_temperature(temp_str: str) -> int:
+    temp_int = int(temp_str)
 
-    def show(self):
-        print(f"{self.name}:  {self.height}cm, {self.age} days old")
+    if temp_int < 0:
+        raise ValueError(f"{temp_int}°C is too cold for plants (min 0°C)")
+    if temp_int > 40:
+        raise ValueError(f"{temp_int}°C is too hot for plants (max 40°C)")
+    return temp_int
+
+
+def test_temperature() -> None:
+    tests = ["25", "abc", "100", "-50"]
+
+    for value in tests:
+        print(f"Input data is {value}")
+        try:
+            temp = input_temperature(value)
+            print(f"Temperature is now {temp}°C\n")
+        except ValueError as error:
+            print(f"Caught input_temperature error: {error}\n")
 
 
 if __name__ == "__main__":
-    print("=== Garden Plant Registry ===")
-    plant_1 = Plant("Rose", 25, 30)
-    plant_1.show()
-    plant_2 = Plant("Sunflower", 80, 45)
-    plant_2.show()
-    plant_3 = Plant("Cactus", 15, 120)
-    plant_3.show()
+    print("=== Garden Temperature Checker ===\n")
+    test_temperature()
+    print("\nAll tests completed - program didn’t crash!")
