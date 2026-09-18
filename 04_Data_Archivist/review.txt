@@ -1,0 +1,130 @@
+Review
+Common core - Data Archivist
+
+- Remain polite, courteous, respectful and constructive
+throughout the evaluation process. The well-being of the community
+depends on it.
+
+- Together with the person (or group) being evaluated, identify any issues in the work.
+Take the time to discuss and debate the problems you have identified.
+
+- You must consider that there might be differences in how your
+peers have understood the project's instructions and the
+scope of its functionality. Always keep an open mind and grade
+their work as honestly as possible. The pedagogy is valid
+only if peer evaluation is conducted seriously.
+
+- Only grade the work that is in the student's or group's
+Git repository.
+
+- Double-check that the Git repository belongs to the student
+or the group. Ensure that the work is for the relevant project
+and also check that "git clone" is run in an empty folder.
+
+- Check carefully that no malicious aliases were used to fool you
+and make you evaluate something other than the content of the
+official repository.
+
+- To avoid any surprises, carefully check that both the evaluating
+and the evaluated students have reviewed any scripts that may be used
+to facilitate grading.
+
+- If the evaluating student has not completed that particular
+project yet, it is mandatory for this student to read the
+entire subject document prior to starting the defence.
+
+- Use the flags available on this scale to signal an empty repository,
+a non-functioning program, a norm error, cheating, etc. In these cases,
+the grading is over and the final grade is 0 (or -42 in case of
+cheating). However, with the exception of cheating, you are
+encouraged to continue to discuss your work (even if you have not
+finished it) in order to identify any issues that may have caused
+this failure and avoid repeating the same mistake in the future.
+
+- Remember that for the duration of the defence, no unexpected,
+premature, uncontrolled termination of the program is allowed;
+otherwise, the final grade is 0. Use the appropriate flag. 
+You should never have to edit any file except the configuration file, if it exists.
+If you want to edit a file, take the time to discuss the reasons with the 
+evaluated student and make sure both of you agree with this change.
+
+Git repository:
+
+git@github.com:42learners/Common-core---Data-Archivist-ada894fc-c92f-428d-b236-49bff1afcea2.git
+
+Assets:
+POSSIBLE ISSUES
+(1/6)
+
+Basics
+QUESTION 1
+
+- Only grade the work that is in the learner's Git repository
+- Ensure the Git repository belongs to the learner
+- Check that no malicious aliases are used
+- Verify the project structure matches the subject requirements
+- Check that only the requested files are present in the Git repository.
+  If not, the review stops here.
+
+Are all preliminary checks satisfied?
+Exercise 0 - Ancient Text Recovery
+QUESTION 2
+
+Test the Ancient Text Recovery system:
+- If needed, ask the learner to help you with the tests
+- Create a test file with some content
+- Run the program and verify that it:
+  * Opens the file using open()
+  * Reads the entire content using read()
+  * Displays the content correctly with print()
+  * Closes the file properly using close()
+- Test with different file contents
+- Verify that the program correctly handles error when calling on open(),
+  by testing with a nonexistent file and an inaccessible file.
+[OExercise 1 - Archive Creation
+QUESTION 3
+
+Test the Archive Creation system:
+- If needed, ask the learner to help you with the tests
+- Run the program and verify it:
+  * Opens, reads, displays, and closes the file passed as a parameter (task from the previous exercise)
+  * Updates the content and displays it again (with the '#' character at the end of each line)
+  * Asks for a new file name and opens it for writing (creates it if it does not exist)
+  * Writes content to the file using write()
+  * Closes the file properly
+- Check that the created file contains the expected content
+- Test that the program overwrites existing files
+- Verify that the learner understands that the 'w' mode can overwrite existing data
+Exercise 2 - Stream Management
+QUESTION 4
+
+Test the Stream Management system:
+- If needed, ask the learner to help you with the tests
+- Run the program and verify it:
+  * Meets the same requirements as the previous exercises (reads a file, update
+    the content, ask for a name, and write to the new file)
+  * Prints the error messages to stderr (see the code) with a clear prefix
+  * Does not use the input() function, but instead reads from stdin (using read() or readline())
+Exercise 3 - Vault Security
+QUESTION 5
+
+Test the Vault Security system:
+- If needed, ask the learner to help you with the tests
+- Verify that the program contains a 'secure_archive()' function
+- Check that all file-related operations are handled by this function
+- Check that the function uses a 'with' statement
+- Verify that the program uses the function to test multiple cases (valid and invalid cases) and displays the results
+- Recoding task: update the code so that you can verify that files are automatically closed when using 'with'
+Code Quality
+QUESTION 6
+
+Assess the overall code quality and standards:
+
+- Is the code written in Python 3.10 or higher?
+- Does the code comply with the flake8 linter standards (no errors)?
+- Type hints are required for all functions and methods; check this using mypy.
+- Docstrings are NOT required for this module.
+- Is the code well-structured and readable?
+- Are variable names meaningful and descriptive?
+- Is error handling implemented appropriately?
+
