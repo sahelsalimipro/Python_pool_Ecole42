@@ -60,7 +60,8 @@ class TextProcessor(DataProcessor):
         if isinstance(data, str):
             return True
         if isinstance(data, list):
-            return len(data) > 0 and all(isinstance(item, str) for item in data)
+            return len(data) > 0 and all(isinstance(item, str)
+                                         for item in data)
         return False
 
     def ingest(self, data: str | list[str]) -> None:
@@ -80,7 +81,8 @@ class LogProcessor(DataProcessor):
         if self._is_log_dict(data):
             return True
         if isinstance(data, list):
-            return len(data) > 0 and all(self._is_log_dict(item) for item in data)
+            return len(data) > 0 and all(self._is_log_dict(item)
+                                         for item in data)
         return False
 
     def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
