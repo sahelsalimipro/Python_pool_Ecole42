@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Protocol
 
 
 class DataProcessor(ABC):
@@ -29,6 +29,11 @@ class DataProcessor(ABC):
         rank = self._next_rank
         self._next_rank += 1
         return (rank, value)
+
+    def pending(self) -> int:
+        # """Return the number of items currently waiting on this
+        # processor, without consuming them."""
+        return len(self._storage)
 
 
 class NumericProcessor(DataProcessor):
@@ -110,58 +115,166 @@ class LogProcessor(DataProcessor):
         return f"{d['log_level']}: {d['log_message']}"
 
 
+class ExportPlugin(Protocol):
+    # """Structural (duck-typed) contract every export plugin must
+    # satisfy. Any object exposing a matching process_output method
+    # is export-compatible, with no need to inherit from this class."""
+
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        ...
+
+
+class CSVExportPlugin:
+    # """Exports a batch of (rank, value) tuples as a single CSV
+    # row, discarding the rank and keeping only the values."""
+
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        print("CSV Output:")
+        print(",".join(value for _, value in data))
+
+
+class JSONExportPlugin:
+    # """Exports a batch of (rank, value) tuples as a JSON object,
+    # keyed by an "item_<rank>" label."""
+
+    def process_output(self, data: list[tuple[int, str]]) -> None:
+        entries = [f'"item_{rank}": "{value}"' for rank, value in data]
+        print("JSON Output:")
+        print("{" + ", ".join(entries) + "}")
+
+
+class DataStream:
+    # """Routes heterogeneous data through a set of registered
+    # DataProcessor instances, purely through polymorphic behavior:
+    # it never needs to know which concrete processor type it is
+    # talking to, only that each one exposes validate/ingest/output.
+    # It can also export pending data through any duck-typed
+    # ExportPlugin, again without knowing its concrete type."""
+
+    def __init__(self) -> None:
+        self._processors: list[DataProcessor] = []
+        self._total_processed: dict[DataProcessor, int] = {}
+
+    def register_processor(self, proc: DataProcessor) -> None:
+        # """Add a new data processor able to receive elements of the
+        # stream."""
+        self._processors.append(proc)
+        self._total_processed[proc] = 0
+
+    def process_stream(self, stream: list[Any]) -> None:
+        # """Route every element of the stream to the first registered
+        # processor able to validate it. Prints an error message for
+        # any element no processor can handle."""
+        for element in stream:
+            handled = False
+            for proc in self._processors:
+                if proc.validate(element):
+                    before = proc.pending()
+                    proc.ingest(element)
+                    self._total_processed[proc] += proc.pending() - before
+                    handled = True
+                    break
+            if not handled:
+                print(
+                    "DataStream error - Can't process element in "
+                    f"stream: {element}"
+                )
+
+    def output_pipeline(self, nb: int, plugin: ExportPlugin) -> None:
+        # """For every registered processor, consume up to nb pending
+        # items (fewer if not enough are available) and hand them to
+        # the given export plugin as a single batch."""
+        for proc in self._processors:
+            batch: list[tuple[int, str]] = []
+            for _ in range(nb):
+                if proc.pending() == 0:
+                    break
+                batch.append(proc.output())
+            if batch:
+                plugin.process_output(batch)
+
+    def print_processors_stats(self) -> None:
+        # """Print, for every registered processor, the total number
+        # of items it has ever processed along with how many are
+        # still waiting to be extracted."""
+        print("== DataStream statistics ==")
+        if not self._processors:
+            print("No processor found, no data")
+            return
+        for proc in self._processors:
+            name = type(proc).__name__.replace("Processor", " Processor")
+            total = self._total_processed[proc]
+            print(
+                f"{name}: total {total} items processed, "
+                f"remaining {proc.pending()} on processor"
+            )
+
+
 def main() -> None:
-    print("=== Code Nexus - Data Processor ===\n")
+    print("=== Code Nexus - Data Pipeline ===\n")
 
-    # --- Numeric Processor ---
-    print("Testing Numeric Processor...")
+    print("Initialize Data Stream...")
+    data_stream = DataStream()
+    print()
+    data_stream.print_processors_stats()
+    print()
+
+    print("Registering Processors")
     numeric = NumericProcessor()
-    print(f"Trying to validate input '42': {numeric.validate(42)}")
-    print(f"Trying to validate input 'Hello': {numeric.validate('Hello')}")
-
-    print("Test invalid ingestion of string 'foo' without prior validation:")
-    try:
-        numeric.ingest("foo")  # type: ignore[arg-type]
-    except TypeError as exc:
-        print(f"Got exception: {exc}")
-
-    data: list[int | float] = [1, 2, 3, 4, 5]
-    print(f"Processing data: {data}")
-    numeric.ingest(data)
-    print("Extracting 3 values...")
-    for _ in range(3):
-        rank, value = numeric.output()
-        print(f"Numeric value {rank}: {value}")
-    print()
-
-    # --- Text Processor ---
-    print("Testing Text Processor...")
     text = TextProcessor()
-    print(f"Trying to validate input '42': {text.validate(42)}")
-
-    data_text = ["Hello", "Nexus", "World"]
-    print(f"Processing data: {data_text}")
-    text.ingest(data_text)
-    print("Extracting 1 value...")
-    rank, value = text.output()
-    print(f"Text value {rank}: {value}")
+    log = LogProcessor()
+    data_stream.register_processor(numeric)
+    data_stream.register_processor(text)
+    data_stream.register_processor(log)
     print()
 
-    # --- Log Processor ---
-    print("Testing Log Processor...")
-    log = LogProcessor()
-    print(f"Trying to validate input 'Hello': {log.validate('Hello')}")
-
-    data_log = [
-        {"log_level": "NOTICE", "log_message": "Connection to server"},
-        {"log_level": "ERROR", "log_message": "Unauthorized access!!"},
+    batch: list[Any] = [
+        "Hello world",
+        [3.14, -1, 2.71],
+        [
+            {"log_level": "WARNING",
+             "log_message": "Telnet access! Use ssh instead"},
+            {"log_level": "INFO",
+             "log_message": "User wil is connected"},
+        ],
+        42,
+        ["Hi", "five"],
     ]
-    print(f"Processing data: {data_log}")
-    log.ingest(data_log)
-    print("Extracting 2 values...")
-    for _ in range(2):
-        rank, value = log.output()
-        print(f"Log entry {rank}: {value}")
+    print(f"Send first batch of data on stream: {batch}")
+    data_stream.process_stream(batch)
+    print()
+    data_stream.print_processors_stats()
+    print()
+
+    print("Send 3 processed data from each processor to a CSV plugin:")
+    csv_plugin = CSVExportPlugin()
+    data_stream.output_pipeline(3, csv_plugin)
+    print()
+    data_stream.print_processors_stats()
+    print()
+
+    batch2: list[Any] = [
+        21,
+        ["I love AI", "LLMs are wonderful", "Stay healthy"],
+        [
+            {"log_level": "ERROR", "log_message": "500 server crash"},
+            {"log_level": "NOTICE",
+             "log_message": "Certificate expires in 10 days"},
+        ],
+        [32, 42, 64, 84, 128, 168],
+        "World hello",
+    ]
+    print(f"Send another batch of data: {batch2}")
+    data_stream.process_stream(batch2)
+    print()
+    data_stream.print_processors_stats()
+    print()
+
+    print("Send 5 processed data from each processor to a JSON plugin:")
+    json_plugin = JSONExportPlugin()
+    data_stream.output_pipeline(5, json_plugin)
+    print()
+    data_stream.print_processors_stats()
 
 
 if __name__ == "__main__":
