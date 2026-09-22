@@ -94,6 +94,8 @@ class LogProcessor(DataProcessor):
             self._storage.append(self._format(data))
 
     @staticmethod
+    # checks whether a dictionary is a valid log
+    # Is d a valid log dictionary?
     def _is_log_dict(d: Any) -> bool:
         required_keys = {"log_level", "log_message"}
         return (
@@ -103,6 +105,7 @@ class LogProcessor(DataProcessor):
         )
 
     @staticmethod
+    # converts a valid log dictionary into a readable string.
     def _format(d: dict[str, str]) -> str:
         return f"{d['log_level']}: {d['log_message']}"
 
