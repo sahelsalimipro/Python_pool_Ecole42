@@ -8,7 +8,7 @@ from ex1 import (
 
 
 def test_healing(factory: CreatureFactory) -> None:
-    """Describe, attack, then heal with the base and evolved creature."""
+    # """Describe, attack, then heal with the base and evolved creature."""
     print("Testing Creature with healing capability")
     for label, creature in (
         ("base:", factory.create_base()),
@@ -25,7 +25,7 @@ def test_healing(factory: CreatureFactory) -> None:
 
 
 def test_transform(factory: CreatureFactory) -> None:
-    """Describe, attack, transform, attack again, then revert."""
+    # """Describe, attack, transform, attack again, then revert."""
     print("Testing Creature with transform capability")
     for label, creature in (
         ("base:", factory.create_base()),
