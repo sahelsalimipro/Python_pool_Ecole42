@@ -1,0 +1,82 @@
+QUESTION 2
+
+Check the content of the ex0/ folder:
+ - it contains an __init__.py file and at least one other file, but multiple files are allowed.
+ - the code defines the Creature abstract class, inheriting from ABC.
+   The attack() method must be an abstract method, and the describe() method must be a concrete method.
+ - at least four different Creature concrete classes are defined, inheriting from the Creature class.
+ - the code defines the CreatureFactory abstract class, inheriting from ABC. The create_base() and create_evolved() abstract methods exist.
+ - at least two concrete factory classes, one for each family with two Creature each.
+ - the __init__.py file should only expose the Creature factories, not the Creature themselves.
+
+Note: the subject suggests Creature names, factory names. The evaluated project can use different Creature names
+as long as the involved design patterns are correctly implemented. This note is valid throughout the entire defense.
+
+Check that the script "battle.py" is present and follows the established scenario:
+ - it instantiates both Creature factory classes.
+ - a single function that accepts any factory exists, and it applies this simple process: create the base Creature,
+   describe it and attack, then repeat with the evolved Creature.
+ - this function works with both previously created factories.
+ - another function that receives two factories exists and creates two Creature (base or evolved), presents them, and makes them fight.
+
+If everything works correctly, and the abstract factory pattern is correctly implemented, tick "Yes". Otherwise, tick "No".
+
+
+QUESTION 3
+
+Check the content of the ex1/ folder:
+ - it contains an __init__.py file and at least one other file, but multiple files are allowed.
+ - the code defines the HealCapability and TransformCapability abstract classes, inheriting from ABC.
+   They contain the heal() and transform() + revert() abstract methods, respectively.
+   For Creature enthusiasts, other capabilities and associated methods are allowed.
+ - at least four new Creature concrete classes are defined, inheriting from the Creature class plus one of the two capability classes above.
+   (two Creature with heal capability, and two Creature with transform capability).
+ - at least two concrete factory classes, one for each new family with two Creature each.
+ - the __init__.py file should only expose the Creature factories, not the Creature themselves.
+
+Check that the script "capacitor.py" is present and follows the established scenario:
+ - it instantiates both new Creature factory classes.
+ - each factory is tested: the standard methods describe() and attack() are used, along with the special capability inserted at the
+   correct place in the process (see the subject for the suggested Creature and capabilities). This applies to both the base and the evolved Creature.
+
+If everything works correctly, and the abstract capabilities are correctly implemented, tick "Yes". Otherwise, tick "No".
+
+
+QUESTION 4
+
+Check the content of the ex2/ folder:
+ - it contains an __init__.py file and at least one other file, but multiple files are allowed.
+ - the code defines the BattleStrategy abstract class, inheriting from ABC.
+   The act() and is_valid() methods are abstract methods.
+ - at least three different concrete strategy classes are defined, inheriting from the BattleStrategy class.
+ - a "normal" strategy exists and is suitable for any Creature, whatever the family or the capability.
+ - different strategies exist and match the capabilities from ex1. For example, a defensive strategy can
+   work with a Creature with HealCapability and then call heal() after the attack().
+
+Check that the script "tournament.py" is present and follows the established scenario:
+ - it instantiates Creature factory classes from ex0 and ex1.
+ - it instantiates the different strategies available.
+ - a single battle() function exists and handles the tournament (you can create sub-functions).
+ - the battle() function accepts, as a parameter, a list of tuples consisting of a CreatureFactory and a BattleStrategy.
+ - the battle() function organizes a fight between each pair of opponents from the list. Check that a Creature does not fight itself,
+   and does not fight another Creature twice (A-B and B-A).
+ - Verify that its associated strategy is applied to the Creature during the fight. For example, a healing Creature will heal() when using a
+   defensive strategy, but not when using a normal strategy.
+ - Check that a unsuitable strategy for a Creature stops the tournament.
+
+If everything works correctly, and the abstract strategy pattern is correctly implemented, tick "Yes". Otherwise, tick "No".
+
+
+QUESTION 5
+
+Assess the overall code quality and standards:
+ - Is the code written in Python 3.10 or higher?
+ - Does the code adhere to the flake8 linter standards (no errors)?
+ - Type hints are REQUIRED for all functions and methods; check them using mypy.
+ - Docstrings are NOT required for this module.
+ - Is the code well-structured and readable?
+
+Understanding:
+ - Does the code demonstrate proper use and understanding of abstract patterns?
+
+Answer "Yes" if all quality standards are met, and "No" if any are lacking.
