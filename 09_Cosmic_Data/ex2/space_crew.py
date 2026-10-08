@@ -8,7 +8,10 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Dict, List, Mapping
 
-from pydantic import BaseModel, Field, ValidationError, model_validator
+from pydantic import BaseModel  # type: ignore
+from pydantic import Field  # type: ignore
+from pydantic import ValidationError  # type: ignore
+from pydantic import model_validator  # type: ignore
 
 
 class Rank(str, Enum):

@@ -7,7 +7,9 @@ Basic Pydantic model creation with BaseModel and Field constraints.
 from datetime import datetime
 from typing import Any, Dict, Optional
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel  # type: ignore
+from pydantic import Field  # type: ignore
+from pydantic import ValidationError  # type: ignore
 
 
 class SpaceStation(BaseModel):
